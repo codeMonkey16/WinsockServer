@@ -8,6 +8,10 @@
 #include <ws2tcpip.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include<string>
+#include <iostream>
+
+using namespace std;
 
 // Need to link with Ws2_32.lib
 #pragma comment (lib, "Ws2_32.lib")
@@ -106,7 +110,8 @@ int __cdecl main(void)
             iResult = recv(ClientSocket, recvbuf, recvbuflen, 0);
             if (iResult > 0)
             {
-                printf("Bytes received: %d\n", iResult);
+                string recv = string(&recvbuf[0], &recvbuf[iResult]);
+                printf("Bytes received: %d, value: %s\n", iResult, recv.c_str());
 
                 // Echo the buffer back to the sender
                 int iSendResult = send(ClientSocket, recvbuf, iResult, 0);
